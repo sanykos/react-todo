@@ -1,9 +1,16 @@
-import { ADD_TODO } from './actionTypes'
+import { ADD_TODO, DELETE_TODO } from './actionTypes'
 
 
-export default function addTodo(name) {
+export function addTodo(name) {
     return {
         type: ADD_TODO,
-        payload: name
+        name
+    }
+}
+
+export function deleteTodo(id) {
+    return {
+        type: DELETE_TODO,
+        id
     }
 }
