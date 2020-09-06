@@ -25,7 +25,7 @@ export default function todos(state = initialState, action) {
         }
         case ADD_TODO: {
             const { todos }  = state
-            todos.push({id: todos.length + 1, name: action.name, complete: false})
+            todos.push({id: todos.length + Math.random(), name: action.name, complete: false})
             return {
                 ...state,
                 todos
