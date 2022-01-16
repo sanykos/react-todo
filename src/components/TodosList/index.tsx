@@ -4,13 +4,13 @@ import { Delete, Done } from '@material-ui/icons';
 import { ITodosList } from './interfaces';
 
 const TodosList = (props: ITodosList) => {
-  const { todos, total, changeStatus, deleteTodo } = props;
+  const { todos, changeStatus, deleteTodo } = props;
 
-  const changeStatusHandler = (id: number) => {
+  const changeStatusHandler = (id: string) => {
     return () => changeStatus(id);
   };
 
-  const deleteTodoHandler = (id: number) => {
+  const deleteTodoHandler = (id: string) => {
     return (event: SyntheticEvent) => {
       event.stopPropagation();
       deleteTodo(id);
@@ -18,9 +18,9 @@ const TodosList = (props: ITodosList) => {
   };
 
   return (
-    <List className="collection with-header">
+    <List className="collection with-header" style={{ marginTop: '10px' }}>
       <ListItem className="collection-header">
-        <h4>Todos (Total: {total})</h4>
+        <h4>Todos</h4>
       </ListItem>
       {todos.map((todo) => (
         <ListItem
@@ -30,6 +30,8 @@ const TodosList = (props: ITodosList) => {
           style={{
             display: 'flex',
             justifyContent: 'space-between',
+            cursor: 'pointer',
+            borderBottom: '1px solid #000',
           }}
         >
           {todo.title}

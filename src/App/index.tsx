@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Container } from '@material-ui/core';
-import 'materialize-css/dist/css/materialize.min.css';
 import AddTodos from '../components/AddTodos';
 import TodosList from '../components/TodosList';
 import FilterTodos from '../components/FilterTodos';
@@ -14,22 +14,18 @@ const App: FC = () => {
   const [filter, setFilter] = useState<VISIBILITY_FILTER>(VISIBILITY_FILTER.SHOW_ALL);
   const [search, setSearch] = useState('');
 
-  const deleteTodo = (id: number) => {
+  const deleteTodo = (id: string) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   };
 
   const addTodoHandler = (value: string): void => {
-    if (value.length > 3) {
-      setTodos((prev) => [...prev, { title: value, id: prev.length + 1, complete: false }]);
-    }
+    setTodos((prev) => [...prev, { title: value, id: uuidv4(), complete: false }]);
   };
 
-  const changeStatus = (id: number) => {
-    if (todos.length > 0) {
-      const newTodos = todos.map((todo) => (todo.id === id ? { ...todo, complete: !todo.complete } : todo));
-      setTodos(newTodos);
-    }
+  const changeStatus = (id: string) => {
+    const newTodos = todos.map((todo) => (todo.id === id ? { ...todo, complete: !todo.complete } : todo));
+    setTodos(newTodos);
   };
 
   const filterType = (filter: VISIBILITY_FILTER) => {
@@ -51,11 +47,11 @@ const App: FC = () => {
   return (
     <Container id="App">
       <AddTodos addTodo={addTodoHandler} />
-      <TodosList todos={visibleData} total={total} changeStatus={changeStatus} deleteTodo={deleteTodo} />
+      <TodosList todos={visibleData} changeStatus={changeStatus} deleteTodo={deleteTodo} />
       <FilterTodos
-        todos={todos}
         filterType={filterType}
         onSearch={onSearch}
+        total={total}
         doneCount={doneCount}
         todoCount={todoCount}
       />

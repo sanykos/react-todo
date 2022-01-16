@@ -4,7 +4,7 @@ import { IFilterTodos } from './interfaces';
 import { VISIBILITY_FILTER } from '../../App/constants';
 
 const FilterTodos = (props: IFilterTodos) => {
-  const { filterType, onSearch, doneCount, todoCount } = props;
+  const { filterType, onSearch, total, doneCount, todoCount } = props;
 
   const filterHandler = (filter: VISIBILITY_FILTER) => {
     return () => filterType(filter);
@@ -14,17 +14,19 @@ const FilterTodos = (props: IFilterTodos) => {
     onSearch(event.target.value);
   };
 
+  console.log('filter todos');
+
   return (
-    <Grid container>
+    <Grid container style={{ marginTop: '10px' }}>
       <Grid item xs={4}>
         <ButtonGroup variant="contained" size="large" aria-label="large button group">
-          <Button onClick={filterHandler(VISIBILITY_FILTER.SHOW_ALL)}>All</Button>
+          <Button onClick={filterHandler(VISIBILITY_FILTER.SHOW_ALL)}>All {total}</Button>
           <Button onClick={filterHandler(VISIBILITY_FILTER.COMPLETED)}>completed {doneCount}</Button>
           <Button onClick={filterHandler(VISIBILITY_FILTER.ACTIVE)}>active {todoCount}</Button>
         </ButtonGroup>
       </Grid>
       <Grid item xs={8}>
-        <TextField fullWidth onChange={onSearchHandler} />
+        <TextField fullWidth onChange={onSearchHandler} placeholder="search todo" />
       </Grid>
     </Grid>
   );
