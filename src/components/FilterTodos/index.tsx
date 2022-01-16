@@ -4,10 +4,10 @@ import { IFilterTodos } from './interfaces';
 import { VISIBILITY_FILTER } from '../../App/constants';
 
 const FilterTodos = (props: IFilterTodos) => {
-  const { filterTodos, onSearch, doneCount, todoCount } = props;
+  const { filterType, onSearch, doneCount, todoCount } = props;
 
   const filterHandler = (filter: VISIBILITY_FILTER) => {
-    return () => filterTodos(filter);
+    return () => filterType(filter);
   };
 
   const onSearchHandler = (event: ChangeEvent<HTMLInputElement>) => {

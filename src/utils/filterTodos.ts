@@ -1,7 +1,7 @@
 import { ITodo } from '../App/interfaces';
 import { VISIBILITY_FILTER } from '../App/constants';
 
-export function filterItems(todos: ITodo[], filter: VISIBILITY_FILTER) {
+export function filterTodos(todos: ITodo[], filter: VISIBILITY_FILTER) {
   switch (filter) {
     case VISIBILITY_FILTER.ACTIVE:
       return todos.filter(({ complete }) => !complete);

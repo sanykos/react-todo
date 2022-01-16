@@ -3,11 +3,11 @@ import { Container } from '@material-ui/core';
 import 'materialize-css/dist/css/materialize.min.css';
 import AddTodos from '../components/AddTodos';
 import TodosList from '../components/TodosList';
-import { filterItems } from '../utils/filterItems';
+import FilterTodos from '../components/FilterTodos';
+import { filterTodos } from '../utils/filterTodos';
+import { searchTodos } from '../utils/searchTodos';
 import { ITodo } from './interfaces';
 import { initialState, VISIBILITY_FILTER } from './constants';
-import FilterTodos from '../components/FilterTodos';
-import { searchTodos } from '../utils/searchTodos';
 
 const App: FC = () => {
   const [todos, setTodos] = useState<ITodo[]>(initialState);
@@ -32,7 +32,7 @@ const App: FC = () => {
     }
   };
 
-  const filterTodos = (filter: VISIBILITY_FILTER) => {
+  const filterType = (filter: VISIBILITY_FILTER) => {
     setFilter(filter);
   };
 
@@ -40,7 +40,7 @@ const App: FC = () => {
     setSearch(search);
   };
 
-  const visibleData = searchTodos(filterItems(todos, filter), search);
+  const visibleData = searchTodos(filterTodos(todos, filter), search);
 
   const total = todos.length;
 
@@ -54,7 +54,7 @@ const App: FC = () => {
       <TodosList todos={visibleData} total={total} changeStatus={changeStatus} deleteTodo={deleteTodo} />
       <FilterTodos
         todos={todos}
-        filterTodos={filterTodos}
+        filterType={filterType}
         onSearch={onSearch}
         doneCount={doneCount}
         todoCount={todoCount}
