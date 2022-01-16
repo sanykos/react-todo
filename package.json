@@ -1,4 +1,5 @@
 {
+  "homepage": "https://sanykos.github.io/react-todo",
   "name": "react-todo",
   "version": "0.1.0",
   "private": true,
@@ -16,6 +17,7 @@
     "typescript": "^4.5.4"
   },
   "scripts": {
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -39,6 +41,7 @@
   "devDependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "gh-pages": "^3.2.3",
     "materialize-css": "^1.0.0-rc.2"
   }
 }
