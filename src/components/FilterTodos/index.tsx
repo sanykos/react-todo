@@ -14,8 +14,6 @@ const FilterTodos = (props: IFilterTodos) => {
     onSearch(event.target.value);
   };
 
-  console.log('filter todos');
-
   return (
     <Grid container style={{ marginTop: '10px' }}>
       <Grid item xs={4}>

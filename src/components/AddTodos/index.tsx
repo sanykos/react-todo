@@ -12,7 +12,7 @@ const AddTodos = (props: IAddTodos) => {
   const changeInputHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
   };
-  console.log('add todos');
+
   const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       if (value.length <= N) {
