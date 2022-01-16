@@ -7,10 +7,12 @@ import { filterItems } from '../utils/filterItems';
 import { ITodo } from './interfaces';
 import { initialState, VISIBILITY_FILTER } from './constants';
 import FilterTodos from '../components/FilterTodos';
+import { searchTodos } from '../utils/searchTodos';
 
 const App: FC = () => {
   const [todos, setTodos] = useState<ITodo[]>(initialState);
   const [filter, setFilter] = useState<VISIBILITY_FILTER>(VISIBILITY_FILTER.SHOW_ALL);
+  const [search, setSearch] = useState('');
 
   const deleteTodo = (id: number) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
@@ -34,15 +36,29 @@ const App: FC = () => {
     setFilter(filter);
   };
 
-  const visibleData = filterItems(todos, filter);
+  const onSearch = (search: string) => {
+    setSearch(search);
+  };
+
+  const visibleData = searchTodos(filterItems(todos, filter), search);
 
   const total = todos.length;
+
+  const doneCount = todos.filter(({ complete }) => complete).length;
+
+  const todoCount = total - doneCount;
 
   return (
     <Container id="App">
       <AddTodos addTodo={addTodoHandler} />
       <TodosList todos={visibleData} total={total} changeStatus={changeStatus} deleteTodo={deleteTodo} />
-      <FilterTodos filterTodos={filterTodos} />
+      <FilterTodos
+        todos={todos}
+        filterTodos={filterTodos}
+        onSearch={onSearch}
+        doneCount={doneCount}
+        todoCount={todoCount}
+      />
     </Container>
   );
 };
