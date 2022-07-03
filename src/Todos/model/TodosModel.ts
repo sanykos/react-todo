@@ -5,7 +5,7 @@ import { ITodo, ITodosEvents } from './interfaces';
 export class TodosModel {
   protected $todos: Store<ITodo[]>;
 
-  protected events: ITodosEvents;
+  events: ITodosEvents;
 
   constructor(todos: ITodo[]) {
     this.events = {
