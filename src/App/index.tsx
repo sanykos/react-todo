@@ -8,6 +8,8 @@ import { filterTodos } from '../utils/filterTodos';
 import { searchTodos } from '../utils/searchTodos';
 import { ITodo } from './interfaces';
 import { initialState, VISIBILITY_FILTER } from './constants';
+import { TodosModelView } from '../Todos/modelView/TodosModelView';
+import { TodosModel } from '../Todos/model/TodosModel';
 
 const App: FC = () => {
   const [todos, setTodos] = useState<ITodo[]>(initialState);
@@ -44,17 +46,11 @@ const App: FC = () => {
 
   const todoCount = total - doneCount;
 
+  const todosVM = new TodosModelView({ todosModel: new TodosModel([{ id: '1', title: 'title', complete: false }]) });
+
   return (
     <Container id="App">
-      <AddTodos addTodo={addTodoHandler} />
-      <TodosList todos={visibleData} changeStatus={changeStatus} deleteTodo={deleteTodo} />
-      <FilterTodos
-        filterType={filterType}
-        onSearch={onSearch}
-        total={total}
-        doneCount={doneCount}
-        todoCount={todoCount}
-      />
+      <todosVM.View />
     </Container>
   );
 };
