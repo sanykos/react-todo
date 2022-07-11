@@ -14,10 +14,16 @@ export class TodosModelView {
       ...todosModel.events,
     };
 
-    this.View = createComponent(todosModel.combineStores(), (_, content) => (
-      <Suspense fallback={<div>Loading</div>}>
-        <LazyView todos={content.todos} handlers={handlers} />
-      </Suspense>
-    ));
+    this.View = createComponent(todosModel.combineStores(), (_, { todos, activeFilter }) => {
+      const filterTodos = todosModel.filterTodos(todos, activeFilter);
+      const totalCount = todosModel.getTotalCount();
+      const doneCount = todosModel.getDoneCount();
+      const todoCount = todosModel.getTodoCount();
+      return (
+        <Suspense fallback={<div>Loading</div>}>
+          <LazyView todos={filterTodos} handlers={handlers} anotherProps={{ totalCount, doneCount, todoCount }} />
+        </Suspense>
+      );
+    });
   }
 }

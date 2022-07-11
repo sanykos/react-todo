@@ -11,4 +11,11 @@ export type ITodosEvents = {
   addTodo: Event<string>;
   removeTodo: Event<string>;
   changeStatus: Event<string>;
+  setFilter: Event<VISIBILITY_FILTER>;
 };
+
+export enum VISIBILITY_FILTER {
+  SHOW_ALL = 'SHAW_ALL',
+  COMPLETED = 'COMPLETED',
+  ACTIVE = 'ACTIVE',
+}
