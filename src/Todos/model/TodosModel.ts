@@ -1,11 +1,15 @@
 import { combine, createEvent, createStore, Store } from 'effector';
 import { v4 as uuidv4 } from 'uuid';
+import { filterTodos } from '../../utils/filterTodos';
+import { searchTodos } from '../../utils/searchTodos';
 import { ITodo, ITodosEvents, VISIBILITY_FILTER } from './interfaces';
 
 export class TodosModel {
   private $todos: Store<ITodo[]>;
 
   private $activeFilter: Store<VISIBILITY_FILTER>;
+
+  private $search: Store<string>;
 
   public events: ITodosEvents;
 
@@ -16,6 +20,7 @@ export class TodosModel {
       removeTodo: createEvent(),
       changeStatus: createEvent(),
       setFilter: createEvent(),
+      searchTodos: createEvent(),
     };
 
     this.$todos = createStore(todos)
@@ -26,6 +31,9 @@ export class TodosModel {
         const newTodos = state.map((todo) => (todo.id === id ? { ...todo, complete: !todo.complete } : todo));
         return newTodos;
       });
+
+    this.$search = createStore('').on(this.events.searchTodos, (state, search) => search);
+
     this.$activeFilter = createStore(VISIBILITY_FILTER.SHOW_ALL).on(this.events.setFilter, (_, filter) => filter);
   }
 
@@ -41,22 +49,15 @@ export class TodosModel {
     return this.getTotalCount() - this.getDoneCount();
   }
 
-  filterTodos(todos: ITodo[], filter: VISIBILITY_FILTER) {
-    switch (filter) {
-      case VISIBILITY_FILTER.ACTIVE:
-        return todos.filter(({ complete }) => !complete);
-      case VISIBILITY_FILTER.COMPLETED:
-        return todos.filter(({ complete }) => complete);
-      case VISIBILITY_FILTER.SHOW_ALL:
-      default:
-        return todos;
-    }
+  getVisibleData(todos: ITodo[], search: string, filter: VISIBILITY_FILTER) {
+    return searchTodos(filterTodos(todos, filter), search);
   }
 
   combineStores() {
     return combine({
       todos: this.$todos,
       activeFilter: this.$activeFilter,
+      search: this.$search,
     });
   }
 }

@@ -1,4 +1,4 @@
-import React, { ComponentType, lazy, Suspense } from 'react';
+import React, { ChangeEvent, ComponentType, lazy, Suspense } from 'react';
 import { createComponent } from 'effector-react';
 import { TodosModel } from '../model/TodosModel';
 import { ITodosHandlers } from '../view/interfaces';
@@ -12,16 +12,17 @@ export class TodosModelView {
 
     const handlers: ITodosHandlers = {
       ...todosModel.events,
+      searchHandler: (e) => todosModel.events.searchTodos(e.target.value),
     };
 
-    this.View = createComponent(todosModel.combineStores(), (_, { todos, activeFilter }) => {
-      const filterTodos = todosModel.filterTodos(todos, activeFilter);
+    this.View = createComponent(todosModel.combineStores(), (_, { todos, activeFilter, search }) => {
+      const visibleData = todosModel.getVisibleData(todos, search, activeFilter);
       const totalCount = todosModel.getTotalCount();
       const doneCount = todosModel.getDoneCount();
       const todoCount = todosModel.getTodoCount();
       return (
         <Suspense fallback={<div>Loading</div>}>
-          <LazyView todos={filterTodos} handlers={handlers} anotherProps={{ totalCount, doneCount, todoCount }} />
+          <LazyView todos={visibleData} handlers={handlers} anotherProps={{ totalCount, doneCount, todoCount }} />
         </Suspense>
       );
     });

@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { VISIBILITY_FILTER } from '../model/interfaces';
 
 export interface ITodosHandlers {
@@ -5,4 +6,5 @@ export interface ITodosHandlers {
   changeStatus: (id: string) => void;
   removeTodo: (id: string) => void;
   setFilter: (filter: VISIBILITY_FILTER) => void;
+  searchHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 }

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { List, ListItem, ButtonGroup, Button, TextField, Grid } from '@material-ui/core';
 import { Delete, Done } from '@material-ui/icons';
 import { ITodo, VISIBILITY_FILTER } from '../model/interfaces';
@@ -53,9 +53,9 @@ const TodosView: React.FC<{
             </Button>
           </ButtonGroup>
         </Grid>
-        {/* <Grid item xs={8}>
-          <TextField fullWidth onChange={onSearchHandler} placeholder="search todo" />
-        </Grid> */}
+        <Grid item xs={8}>
+          <TextField fullWidth onChange={handlers.searchHandler} placeholder="search todo" />
+        </Grid>
       </Grid>
     </div>
   );

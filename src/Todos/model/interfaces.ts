@@ -1,4 +1,5 @@
 import { Event } from 'effector';
+// import { ChangeEvent } from 'react';
 
 export type ITodo = {
   id: string;
@@ -12,6 +13,7 @@ export type ITodosEvents = {
   removeTodo: Event<string>;
   changeStatus: Event<string>;
   setFilter: Event<VISIBILITY_FILTER>;
+  searchTodos: Event<string>;
 };
 
 export enum VISIBILITY_FILTER {
