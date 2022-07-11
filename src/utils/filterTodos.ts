@@ -1,5 +1,4 @@
-import { ITodo } from '../App/interfaces';
-import { VISIBILITY_FILTER } from '../App/constants';
+import { ITodo, VISIBILITY_FILTER } from '../Todos/model/interfaces';
 
 export function filterTodos(todos: ITodo[], filter: VISIBILITY_FILTER) {
   switch (filter) {

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ComponentType, lazy, Suspense } from 'react';
+import React, { ComponentType, lazy, Suspense } from 'react';
 import { createComponent } from 'effector-react';
 import { TodosModel } from '../model/TodosModel';
 import { ITodosHandlers } from '../view/interfaces';

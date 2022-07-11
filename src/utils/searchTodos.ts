@@ -1,4 +1,4 @@
-import { ITodo } from '../App/interfaces';
+import { ITodo } from '../Todos/model/interfaces';
 
 export function searchTodos(todos: ITodo[], search: string) {
   if (!search) return todos;

@@ -16,7 +16,6 @@ export class TodosModel {
   constructor(todos: ITodo[]) {
     this.events = {
       addTodo: createEvent(),
-      setTodos: createEvent(),
       removeTodo: createEvent(),
       changeStatus: createEvent(),
       setFilter: createEvent(),
@@ -24,7 +23,6 @@ export class TodosModel {
     };
 
     this.$todos = createStore(todos)
-      .on(this.events.setTodos, (_, newTodos) => newTodos)
       .on(this.events.addTodo, (state, title) => [...state, { id: uuidv4(), title, complete: false }])
       .on(this.events.removeTodo, (state, id) => state.filter((todo) => todo.id !== id))
       .on(this.events.changeStatus, (state, id) => {
@@ -32,7 +30,7 @@ export class TodosModel {
         return newTodos;
       });
 
-    this.$search = createStore('').on(this.events.searchTodos, (state, search) => search);
+    this.$search = createStore('').on(this.events.searchTodos, (_, search) => search);
 
     this.$activeFilter = createStore(VISIBILITY_FILTER.SHOW_ALL).on(this.events.setFilter, (_, filter) => filter);
   }

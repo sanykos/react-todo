@@ -1,5 +1,4 @@
 import { Event } from 'effector';
-// import { ChangeEvent } from 'react';
 
 export type ITodo = {
   id: string;
@@ -8,7 +7,6 @@ export type ITodo = {
 };
 
 export type ITodosEvents = {
-  setTodos: Event<ITodo[]>;
   addTodo: Event<string>;
   removeTodo: Event<string>;
   changeStatus: Event<string>;
