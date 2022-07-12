@@ -30,6 +30,7 @@ const AddTodos = (props: IAddTodos) => {
       value={value}
       onChange={changeInputHandler}
       onKeyPress={onKeyPressHandler}
+      id="addTodo"
       fullWidth
       error={error}
       label={error && 'Введите больше символов'}

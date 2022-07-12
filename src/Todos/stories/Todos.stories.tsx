@@ -15,3 +15,5 @@ const TodosView = new TodosModelView({ todosModel: todosInstance }).View;
 export const TodosTemplate: ComponentStory<typeof TodosView> = () => <TodosView />;
 
 TodosTemplate.storyName = 'Список дел';
+
+// Автотесты
